@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-const ActivityForm = ({ showModal, setShowModal }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
+const ActivityForm = ({ showModal, setShowModal, onChange, onSubmit }) => {
   const handleClose = () => {
     setShowModal(false);
-    setTitle("");
-    setDescription("");
   };
 
   return (
@@ -17,38 +15,33 @@ const ActivityForm = ({ showModal, setShowModal }) => {
         <Modal.Title>Add Activity</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form>
-          <div className="mb-3">
-            <label htmlFor="title" className="form-label">
+        <form onSubmit={onSubmit}>
+          <div className='mb-3'>
+            <label htmlFor='title' className='form-label'>
               Title
             </label>
-            <input
-              type="text"
-              className="form-control"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <input type='text' className='form-control' id='title' name='title' onChange={onChange} />
           </div>
-          <div className="mb-3">
-            <label htmlFor="description" className="form-label">
+          <div className='mb-3'>
+            <label htmlFor='description' className='form-label'>
               Description
             </label>
-            <textarea
-              className="form-control"
-              id="description"
-              rows="3"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
+            <textarea className='form-control' id='description' rows='3' name='description' onChange={onChange}></textarea>
           </div>
-          <Button variant="primary" onClick={handleClose}>
+          <Button type='submit' variant='primary' onClick={handleClose}>
             Add
           </Button>
         </form>
       </Modal.Body>
     </Modal>
   );
+};
+
+ActivityForm.propTypes  = {
+  showModal: PropTypes.bool.isRequired,
+  setShowModal: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ActivityForm;
